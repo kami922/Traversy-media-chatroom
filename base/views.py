@@ -10,7 +10,7 @@ from .forms import RoomForm
 
 
 # Create your views here.
-
+#start from 5:00;00S
 
 
 def loginFunc(request):
@@ -88,12 +88,13 @@ def room(request,pk):
 @login_required(login_url="Login")
 def createRoom(request):
     form = RoomForm()
+    topics = Topic.objects.all()
     if request.method == "POST":
         form = RoomForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect("home")
-    context = {'form':form}
+    context = {'form':form,"topics":topics}
     return render(request,"base/room_form.html",context)
 
 @login_required(login_url="Login")
